@@ -8,7 +8,7 @@ resources:
   - rolebinding.yaml
   - secrets.yaml
   - chains.yaml
-  - chains-config.yaml
+  - chainsconfig.yaml
   - serviceaccount.yaml
   - ./eventlisteners
   - ./triggertemplates
