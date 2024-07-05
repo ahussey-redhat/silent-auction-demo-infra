@@ -9,11 +9,11 @@ metadata:
   annotations:
     managed-by: argocd.argoproj.io
 data:
-  name: Z2l0b3BzLWluZnJhCg==
+  name: Z2l0b3BzLWluZnJhLXJlcG8=
   project: ZGVmYXVsdA==
   sshPrivateKey: "{{ ssh_private_key | b64encode }}"
   type: Z2l0
-  url: Z2l0QGdpdGh1Yi5jb206YWh1c3NleS1yZWRoYXQvc2lsZW50LWF1Y3Rpb24tZGVtby1pbmZyYS5naXQK
+  url: Z2l0QGdpdGh1Yi5jb206YWh1c3NleS1yZWRoYXQvc2lsZW50LWF1Y3Rpb24tZGVtby1pbmZyYS5naXQ=
 type: Opaque
 ---
 kind: Secret

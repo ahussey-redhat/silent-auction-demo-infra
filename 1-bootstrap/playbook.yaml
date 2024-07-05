@@ -161,7 +161,7 @@
             name: 1password-connect-credentials
             namespace: vault
           data:
-            1password-credentials.json: "{{ onepassword_connect | b64encode }}"
+            1password-credentials.json: "{{ onepassword_connect | b64encode | b64encode }}"
           type: Opaque
       no_log: true
 
