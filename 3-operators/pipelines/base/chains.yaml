@@ -1,0 +1,10 @@
+---
+apiVersion: operator.tekton.dev/v1alpha1
+kind: TektonChain
+metadata:
+  name: chain
+  namespace: openshift-pipelines
+  annotations:
+    argocd.argoproj.io/sync-wave: "2"
+spec:
+  targetNamespace: openshift-pipelines
