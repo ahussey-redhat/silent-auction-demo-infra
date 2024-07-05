@@ -1,0 +1,185 @@
+---
+- name: Install and configure ArgoCD
+  hosts: localhost
+  connection: local
+  become: false
+  gather_facts: false
+  tasks:
+    - name: Configure argocd namespace
+      kubernetes.core.k8s:
+        src: "argocd/namespace.yaml"
+      failed_when: false
+
+    - name: Configure argocd operatorgroup
+      kubernetes.core.k8s:
+        src: "argocd/operatorgroup.yaml"
+
+    - name: Configure argocd subscription
+      kubernetes.core.k8s:
+        src: "argocd/subscription.yaml"
+
+    - name: Wait for ArgoCD to start deploying
+      ansible.builtin.pause:
+        echo: false
+        prompt: "Waiting for ArgoCD to start deploying"
+        seconds: 120
+
+    - name: Configure argocd cluster role binding
+      kubernetes.core.k8s:
+        src: "argocd/clusterrolebinding.yaml"
+
+    - name: Configure argocd
+      kubernetes.core.k8s:
+        template: "argocd/instance.yaml"
+
+    - name: Configure argocd repo
+      kubernetes.core.k8s:
+        template: "argocd/repo.yaml"
+
+    - name: Configure argocd initial application
+      kubernetes.core.k8s:
+        template: "argocd/application.yaml"
+
+    # This namespace is later managed by GitOps, but is required for the initial bootstrapping to complete
+    - name: Configure build project
+      kubernetes.core.k8s:
+        resource_definition:
+          kind: Project
+          apiVersion: project.openshift.io/v1
+          metadata:
+            name: build
+            labels:
+              kubernetes.io/metadata.name: build
+      failed_when: false
+
+    - name: Configure SSH secret
+      kubernetes.core.k8s:
+        resource_definition:
+          kind: Secret
+          apiVersion: v1
+          metadata:
+            name: gitops-github-ssh-creds
+            namespace: build
+            annotations:
+              tekton.dev/git-0: github.com
+          type: kubernetes.io/ssh-auth
+          data:
+            ssh-privatekey: "{{ ssh_private_key | b64encode }}"
+      no_log: true
+
+    - name: Configure Quay Pull secret
+      kubernetes.core.k8s:
+        resource_definition:
+          apiVersion: v1
+          kind: Secret
+          metadata:
+            name: quay-robot-pull-secret
+            namespace: build
+          data:
+            .dockerconfigjson: "{{ quay_pull_secret }}"
+          type: kubernetes.io/dockerconfigjson
+      no_log: true
+
+    - name: Link secrets to pipelines service account
+      kubernetes.core.k8s:
+        resource_definition:
+          kind: ServiceAccount
+          apiVersion: v1
+          metadata:
+            name: pipeline
+            namespace: build
+          secrets:
+            - name: gitops-github-ssh-creds
+            - name: quay-robot-pull-secret
+
+    - name: Configure webhook secret
+      kubernetes.core.k8s:
+        resource_definition:
+          kind: Secret
+          apiVersion: v1
+          metadata:
+            name: webhook-secret
+            namespace: build
+          type: Opaque
+          data:
+            secretToken: "{{ webhook_secret | b64encode }}"
+      no_log: true
+
+    # This namespace is later managed by GitOps, but is required for the initial bootstrapping to complete
+    - name: Configure vault project
+      kubernetes.core.k8s:
+        resource_definition:
+          kind: Project
+          apiVersion: project.openshift.io/v1
+          metadata:
+            name: vault
+            labels:
+              kubernetes.io/metadata.name: vault
+      failed_when: false
+
+    - name: Configure production project
+      kubernetes.core.k8s:
+        resource_definition:
+          kind: Project
+          apiVersion: project.openshift.io/v1
+          metadata:
+            name: production
+            labels:
+              kubernetes.io/metadata.name: production
+      failed_when: false
+
+    - name: Configure quality project
+      kubernetes.core.k8s:
+        resource_definition:
+          kind: Project
+          apiVersion: project.openshift.io/v1
+          metadata:
+            name: quality
+            labels:
+              kubernetes.io/metadata.name: quality
+      failed_when: false
+
+    - name: Configure onepassword-token secret
+      kubernetes.core.k8s:
+        resource_definition:
+          kind: Secret
+          apiVersion: v1
+          metadata:
+            name: onepassword-token
+            namespace: vault
+          data:
+            token: "{{ onepassword_token | b64encode }}"
+          type: Opaque
+      no_log: true
+
+    - name: Configure onepassword-connect-credentials secret
+      kubernetes.core.k8s:
+        resource_definition:
+          kind: Secret
+          apiVersion: v1
+          metadata:
+            name: 1password-connect-credentials
+            namespace: vault
+          data:
+            1password-credentials.json: "{{ onepassword_connect | b64encode }}"
+          type: Opaque
+      no_log: true
+
+    # - name: Configure Dev Spaces GitHub OAuth
+    #   kubernetes.core.k8s:
+    #     resource_definition:
+    #       kind: Secret
+    #       apiVersion: v1
+    #       metadata:
+    #         name: github-oauth-config
+    #         namespace: openshift-devspaces
+    #         labels:
+    #           app.kubernetes.io/part-of: che.eclipse.org
+    #           app.kubernetes.io/component: oauth-scm-configuration
+    #         annotations:
+    #           che.eclipse.org/oauth-scm-server: github
+    #       type: Opaque
+    #       data:
+    #         id: "{{ github_oauth_client_id | b64encode }}"
+    #         secret: "{{ github_oauth_secret | b64encode }}"
+    #   no_log: true

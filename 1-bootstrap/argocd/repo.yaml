@@ -1,0 +1,33 @@
+---
+kind: Secret
+apiVersion: v1
+metadata:
+  name: gitops-infra-repo
+  namespace: openshift-gitops
+  labels:
+    argocd.argoproj.io/secret-type: repository
+  annotations:
+    managed-by: argocd.argoproj.io
+data:
+  name: Z2l0b3BzLWluZnJhCg==
+  project: ZGVmYXVsdA==
+  sshPrivateKey: "{{ ssh_private_key | b64encode }}"
+  type: Z2l0
+  url: Z2l0QGdpdGh1Yi5jb206YWh1c3NleS1yZWRoYXQvc2lsZW50LWF1Y3Rpb24tZGVtby1pbmZyYS5naXQK
+type: Opaque
+---
+kind: Secret
+apiVersion: v1
+metadata:
+  name: openshift-helm-charts
+  namespace: openshift-gitops
+  labels:
+    argocd.argoproj.io/secret-type: repository
+  annotations:
+    managed-by: argocd.argoproj.io
+data:
+  name: b3BlbnNoaWZ0LWhlbG0tY2hhcnRz
+  project: ZGVmYXVsdA==
+  type: aGVsbQ==
+  url: aHR0cHM6Ly9jaGFydHMub3BlbnNoaWZ0Lmlv
+type: Opaque
