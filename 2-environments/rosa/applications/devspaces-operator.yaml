@@ -12,7 +12,7 @@ spec:
     server: 'https://kubernetes.default.svc'
   project: default
   source:
-    path: 3-operators/devspaces/overlays/latest
+    path: 3-operators/devspaces/overlays/stable
     repoURL: >-
       git@github.com:ahussey-redhat/silent-auction-demo-infra.git
     targetRevision: main
