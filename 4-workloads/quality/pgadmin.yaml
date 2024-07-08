@@ -1,0 +1,22 @@
+---
+apiVersion: postgres-operator.crunchydata.com/v1beta1
+kind: PGAdmin
+metadata:
+  name: pgadmin
+  annotations:
+    argocd.argoproj.io/sync-wave: "3"
+spec:
+  dataVolumeClaimSpec:
+    accessModes:
+      - ReadWriteOnce
+    resources:
+      requests:
+        storage: 1Gi
+  serverGroups:
+    - name: silent-auction
+      postgresClusterSelector:
+        matchLabels:
+          app: silent-auction
+  config:
+    settings:
+      DEFAULT_SERVER: '0.0.0.0'

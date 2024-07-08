@@ -1,0 +1,29 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: pgadmin
+spec:
+  selector:
+    postgres-operator.crunchydata.com/pgadmin: pgadmin
+  ports:
+    - name: pgadmin
+      protocol: TCP
+      port: 5050
+      targetPort: pgadmin
+---
+kind: Route
+apiVersion: route.openshift.io/v1
+metadata:
+  name: pgadmin
+spec:
+  to:
+    kind: Service
+    name: pgadmin
+  tls:
+    termination: edge
+    insecureEdgeTerminationPolicy: Redirect
+  subdomain: pgadmin-quality
+  path: /
+  port:
+    targetPort: pgadmin
