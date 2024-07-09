@@ -20,3 +20,9 @@ spec:
   config:
     settings:
       DEFAULT_SERVER: '0.0.0.0'
+  users:
+    - username: admin@pgo.io
+      role: Administrator
+      passwordRef:
+        name: silent-auction-pguser-silent-auction
+        key: password
