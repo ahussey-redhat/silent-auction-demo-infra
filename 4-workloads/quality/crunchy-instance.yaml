@@ -8,6 +8,7 @@ metadata:
     version: '16'
   annotations:
     argocd.argoproj.io/sync-wave: "2"
+    postgres-operator.crunchydata.com/autoCreateUserSchema: true
 spec:
   backups:
     pgbackrest:
