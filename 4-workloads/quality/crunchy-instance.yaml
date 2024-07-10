@@ -10,6 +10,9 @@ metadata:
     argocd.argoproj.io/sync-wave: "2"
     postgres-operator.crunchydata.com/autoCreateUserSchema: true
 spec:
+  databaseInitSQL:
+    key: init.sql
+    name: db-init-sql
   backups:
     pgbackrest:
       global:
