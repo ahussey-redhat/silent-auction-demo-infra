@@ -5,5 +5,8 @@ metadata:
   annotations:
     argocd.argoproj.io/sync-wave: "1"
 data:
-  init.sql: CREATE SCHEMA IF NOT EXISTS auction;
+  init.sql: |
+    create database "silent-auction";
+    \c "silent-auction"
+    CREATE SCHEMA IF NOT EXISTS auction;
 immutable: false
