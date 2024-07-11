@@ -165,65 +165,65 @@
           type: Opaque
       no_log: true
 
-    - name: configure SSO secret
-      kubernetes.core.k8s:
-        resource_definition:
-          kind: Secret
-          apiVersion: v1
-          metadata:
-            name: openid-client-secret
-            namespace: openshift-config
-          data:
-            clientSecret: "{{ sso_oidc_secret | b64encode }}"
-          type: Opaque
-      no_log: true
+    # - name: configure SSO secret
+    #   kubernetes.core.k8s:
+    #     resource_definition:
+    #       kind: Secret
+    #       apiVersion: v1
+    #       metadata:
+    #         name: openid-client-secret
+    #         namespace: openshift-config
+    #       data:
+    #         clientSecret: "{{ sso_oidc_secret | b64encode }}"
+    #       type: Opaque
+    #   no_log: true
 
-    - name: configure IdentityProviders
-      kubernetes.core.k8s:
-        resource_definition:
-          apiVersion: config.openshift.io/v1
-          kind: OAuth
-          metadata:
-            annotations:
-              include.release.openshift.io/ibm-cloud-managed: 'true'
-              include.release.openshift.io/self-managed-high-availability: 'true'
-              include.release.openshift.io/single-node-developer: 'true'
-              release.openshift.io/create-only: 'true'
-            name: cluster
-          spec:
-            identityProviders:
-              - htpasswd:
-                  fileData:
-                    name: htpasswd-secret-2cadrsabgq2i6rd69boc7cl0l2n3c3vr
-                mappingMethod: claim
-                name: cluster-admin
-                type: HTPasswd
-              - mappingMethod: claim
-                name: silent-auction
-                openID:
-                  claims:
-                    email:
-                      - email
-                    groups:
-                      - groups
-                    name:
-                      - name
-                    preferredUsername:
-                      - preferred_username
-                  clientID: openshift
-                  clientSecret:
-                    name: openid-client-secret
-                  extraScopes: []
-                  issuer: 'https://sso.bastion.blueguardian.co/realms/silent-auction-demo'
-                type: OpenID
-            templates:
-              error:
-                name: rosa-oauth-templates-errors
-              login:
-                name: rosa-oauth-templates-login
-              providerSelection:
-                name: rosa-oauth-templates-providers
-            tokenConfig: {}
+    # - name: configure IdentityProviders
+    #   kubernetes.core.k8s:
+    #     resource_definition:
+    #       apiVersion: config.openshift.io/v1
+    #       kind: OAuth
+    #       metadata:
+    #         annotations:
+    #           include.release.openshift.io/ibm-cloud-managed: 'true'
+    #           include.release.openshift.io/self-managed-high-availability: 'true'
+    #           include.release.openshift.io/single-node-developer: 'true'
+    #           release.openshift.io/create-only: 'true'
+    #         name: cluster
+    #       spec:
+    #         identityProviders:
+    #           - htpasswd:
+    #               fileData:
+    #                 name: htpasswd-secret-2cadrsabgq2i6rd69boc7cl0l2n3c3vr
+    #             mappingMethod: claim
+    #             name: cluster-admin
+    #             type: HTPasswd
+    #           - mappingMethod: claim
+    #             name: silent-auction
+    #             openID:
+    #               claims:
+    #                 email:
+    #                   - email
+    #                 groups:
+    #                   - groups
+    #                 name:
+    #                   - name
+    #                 preferredUsername:
+    #                   - preferred_username
+    #               clientID: openshift
+    #               clientSecret:
+    #                 name: openid-client-secret
+    #               extraScopes: []
+    #               issuer: 'https://sso.bastion.blueguardian.co/realms/silent-auction-demo'
+    #             type: OpenID
+    #         templates:
+    #           error:
+    #             name: rosa-oauth-templates-errors
+    #           login:
+    #             name: rosa-oauth-templates-login
+    #           providerSelection:
+    #             name: rosa-oauth-templates-providers
+    #         tokenConfig: {}
 
     - name: Configure ClusterRoleBinding for Cluster Admins
       kubernetes.core.k8s:
