@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: silent-auction-demo-frontend
-          image: 'quay.io/ahussey/silent-auction/backend:latest'
+          image: 'quay.io/ahussey/silent-auction/frontend:latest'
           resources:
             limits:
               cpu: 2
