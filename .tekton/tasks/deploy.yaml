@@ -30,6 +30,20 @@ spec:
         export IMAGE_URL=$(params.image_url)
         export IMAGE_DIGEST=$(params.image_digest)
         yq e '.images[] |= map(select(.name == env(IMAGE_URL)).digest=env(IMAGE_DIGEST))' -i ./kustomization.yaml
+    - image: quay.io/ahussey/tekton-utils:latest
+      name: git-push
+      resources: {}
+      script: |
+        cd $(workspaces.argocd_source.path)
+
+        git config user.name "TekTon"
+        git config user.email "tekton@example.com"
+        git branch --set-upstream-to=origin/main main
+
+        git add ./$(params.kustomization_directory)/kustomization.yaml
+        git commit -m "Updated $(params.image_url):$(params.image_digest) for production"
+        git push -u origin main -f
+
   workspaces:
     - name: argocd_source
       description: >-
