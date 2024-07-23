@@ -37,9 +37,11 @@ spec:
       name: git-push
       resources: {}
       script: |
+        set -euo pipefail
         cd $(workspaces.argocd_source.path)
 
-        git init
+        ls -als
+
         git config user.name "TekTon"
         git config user.email "tekton@example.com"
         git checkout -b main
