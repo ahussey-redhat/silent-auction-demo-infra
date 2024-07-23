@@ -20,6 +20,9 @@ spec:
     - description: Kustomization directory
       name: kustomization_directory
       type: string
+    - description: ArgoCD git repo URL
+      name: argocd_git_url
+      type: string
   steps:
     - image: quay.io/ahussey/tekton-utils:latest
       name: modify-kustomization
@@ -36,8 +39,11 @@ spec:
       script: |
         cd $(workspaces.argocd_source.path)
 
+        git init
         git config user.name "TekTon"
         git config user.email "tekton@example.com"
+        git checkout -b main
+        git remote add origin $(params.argocd_git_url)
         git branch --set-upstream-to=origin/main main
 
         git add ./$(params.kustomization_directory)/kustomization.yaml
