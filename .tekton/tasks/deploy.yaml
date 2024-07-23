@@ -27,7 +27,9 @@ spec:
       script: |
         cd $(workspaces.argocd_source.path)/$(params.kustomization_directory)
         cat ./kustomization.yaml
-        yq e '.images[] |= map(select(.name == "$(params.image_url)").digest=$(params.image_digest))' -i ./kustomization.yaml
+        export IMAGE_URL=$(params.image_url)
+        export IMAGE_DIGEST=$(params.image_digest)
+        yq e '.images[] |= map(select(.name == env(IMAGE_URL)).digest=env(IMAGE_DIGEST))' -i ./kustomization.yaml
   workspaces:
     - name: argocd_source
       description: >-
