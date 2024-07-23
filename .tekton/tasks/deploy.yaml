@@ -37,15 +37,17 @@ spec:
       name: git-push
       resources: {}
       script: |
-        set -euo pipefail
+        set -euxo pipefail
         cd $(workspaces.argocd_source.path)
 
         ls -als
-
-        git config user.name "TekTon"
-        git config user.email "tekton@example.com"
+        
+        git init
+        git config --global --add safe.directory $(workspaces.argocd_source.path)
+        git config --global user.name "TekTon"
+        git config --global user.email "tekton@example.com"
         git checkout -b main
-        git remote add origin $(params.argocd_git_url)
+        git fetch --all
         git branch --set-upstream-to=origin/main main
 
         git add ./$(params.kustomization_directory)/kustomization.yaml
