@@ -34,4 +34,3 @@ spec:
     - name: argocd_source
       description: >-
         A workspace for the ArgoCD repository to clone into
-      optional: false
