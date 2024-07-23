@@ -13,5 +13,4 @@ resources:
   - ./eventlisteners
   - ./triggertemplates
   - ./pipelines
-  - ./tasks
   - ./cron_builds
