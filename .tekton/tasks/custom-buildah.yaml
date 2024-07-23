@@ -61,7 +61,7 @@ spec:
       name: SKIP_PUSH
       type: string
     - description: "Git branch to build"
-      name: revision
+      name: REVISION
       type: string
   results:
     - description: Digest of the image just built.
@@ -80,7 +80,7 @@ spec:
           --tls-verify=$(params.TLSVERIFY) --no-cache \
           -f $(params.DOCKERFILE) -t $(params.IMAGE) $(params.CONTEXT)
 
-        buildah --storage-driver=$(params.STORAGE_DRIVER) tag $(params.IMAGE) "$(params.IMAGE):$(params.revision)"
+        buildah --storage-driver=$(params.STORAGE_DRIVER) tag $(params.IMAGE) "$(params.IMAGE):$(params.REVISION)"
 
         if [[ "$(params.SKIP_PUSH)" == "true" ]]; then
           echo "Push skipped"
@@ -105,7 +105,7 @@ spec:
           fi
         fi
 
-        if [[ "$(params.revision)" == "main" ]] || [[ "$(params.revision)" == "master" ]]; then
+        if [[ "$(params.REVISION)" == "main" ]] || [[ "$(params.REVISION)" == "master" ]]; then
           buildah --storage-driver=$(params.STORAGE_DRIVER) push \
             $(params.PUSH_EXTRA_ARGS) --tls-verify=$(params.TLSVERIFY) \
             --digestfile /tmp/image-digest $(params.IMAGE) \
@@ -115,7 +115,7 @@ spec:
         buildah --storage-driver=$(params.STORAGE_DRIVER) push \
           $(params.PUSH_EXTRA_ARGS) --tls-verify=$(params.TLSVERIFY) \
           --digestfile /tmp/image-digest $(params.IMAGE) \
-          docker://$(params.IMAGE):$(params.git-revision)
+          docker://$(params.IMAGE):$(params.REVISION)
 
         cat /tmp/image-digest | tee $(results.IMAGE_DIGEST.path)
         echo "$(params.IMAGE)" | tee $(results.IMAGE_URL.path)
