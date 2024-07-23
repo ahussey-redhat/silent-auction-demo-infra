@@ -25,7 +25,8 @@ spec:
       name: modify-kustomization
       resources: {}
       script: |
-        cd $(workspace.argocd_source)/$(params.kustomization_directory)
+        ls -als
+        cd $(workspaces.argocd_source.path)/$(params.kustomization_directory)
         cat ./kustomization.yaml
         yq -y '.images[] |= map(select(.name == "$(params.image_url)").digest=$(params.image_digest))' ./kustomization.yaml
   workspaces:
