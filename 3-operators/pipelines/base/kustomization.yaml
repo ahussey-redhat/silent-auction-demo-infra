@@ -6,6 +6,7 @@ resources:
   - operatorgroup.yaml
   - subscription.yaml
   - rolebinding.yaml
+  - scc-binding.yaml
   - secrets.yaml
   - chains.yaml
   - chainsconfig.yaml
