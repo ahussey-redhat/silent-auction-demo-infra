@@ -17,9 +17,6 @@ spec:
     - description: Digest of teh newly built image
       name: image_digest
       type: string
-    - description: ArgoCD git repository URL
-      name: argocd_git_repo
-      type: string
     - description: Kustomization directory
       name: kustomization_directory
       type: string
@@ -30,6 +27,7 @@ spec:
       script: |
         cd ${workspace.argocd_source}/${kustomization_directory}
         cat ./kustomization.yaml
+        yq -y '.images[] |= map(select(.name == "$(params.image_url)").digest=$(params.image_digest))' ./kustomization.yaml
   workspaces:
     - name: argocd_source
       description: >-
