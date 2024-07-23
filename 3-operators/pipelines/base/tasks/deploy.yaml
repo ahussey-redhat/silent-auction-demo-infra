@@ -1,0 +1,37 @@
+---
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  annotations:
+    tekton.dev/pipelines.minVersion: 0.12.1
+    tekton.dev/tags: image-deploy
+  name: deploy
+  namespace: build
+spec:
+  description: >-
+    Deploy the newly built image via ArgoCD + Kustomize
+  params:
+    - description: URL for where the image will be hosted
+      name: image_url
+      type: string
+    - description: Digest of teh newly built image
+      name: image_digest
+      type: string
+    - description: ArgoCD git repository URL
+      name: argocd_git_repo
+      type: string
+    - description: Kustomization directory
+      name: kustomization_directory
+      type: string
+  steps:
+    - image: quay.io/ahussey/tekton-utils:latest
+      name: modify-kustomization
+      resources: {}
+      script: |
+        cd ${workspace.argocd_source}/${kustomization_directory}
+        cat ./kustomization.yaml
+  workspaces:
+    - name: argocd_source
+      description: >-
+        A workspace for the ArgoCD repository to clone into
+      optional: false

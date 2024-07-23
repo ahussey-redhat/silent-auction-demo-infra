@@ -75,6 +75,8 @@
           metadata:
             name: quay-robot-pull-secret
             namespace: build
+            annotations:
+              tekton.dev/docker-0: quay.io
           data:
             .dockerconfigjson: "{{ quay_pull_secret }}"
           type: kubernetes.io/dockerconfigjson

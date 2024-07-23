@@ -8,5 +8,9 @@ resources:
   - crunchy-instance.yaml
   - db-init-sql.yaml
   - pgadmin.yaml
+  - deployment.yaml
   - routes.yaml
   - secrets.yaml
+images:
+  - name: quay.io/ahussey/silent-auction/frontend
+    digest: sha256:2dd6550d7caab6c286de0f42a248a80894c9af2957a283201a6a93e9c6d38cd7

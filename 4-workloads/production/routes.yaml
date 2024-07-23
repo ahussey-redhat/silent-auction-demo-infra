@@ -3,6 +3,8 @@ apiVersion: v1
 kind: Service
 metadata:
   name: pgadmin
+  annotations:
+    argocd.argoproj.io/sync-wave: "2"
 spec:
   selector:
     postgres-operator.crunchydata.com/pgadmin: pgadmin
@@ -16,6 +18,8 @@ kind: Route
 apiVersion: route.openshift.io/v1
 metadata:
   name: pgadmin
+  annotations:
+    argocd.argoproj.io/sync-wave: "3"
 spec:
   to:
     kind: Service
@@ -27,3 +31,35 @@ spec:
   path: /
   port:
     targetPort: pgadmin
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: silent-auction-demo-frontend
+  annotations:
+    argocd.argoproj.io/sync-wave: "2"
+spec:
+  selector:
+    app.kubernetes.io/name: silent-auction-demo-frontend
+  ports:
+    - name: http
+      protocol: HTTP
+      targetPort: 8080
+---
+kind: Route
+apiVersion: route.openshift.io/v1
+metadata:
+  name: silent-auction-demo-frontend
+  annotations:
+    argocd.argoproj.io/sync-wave: "3"
+spec:
+  to:
+    kind: Service
+    name: silent-auction-demo-frontend
+  tls:
+    termination: edge
+    insecureEdgeTerminationPolicy: Redirect
+  subdomain: silent-auction
+  path: /
+  port:
+    targetPort: http
