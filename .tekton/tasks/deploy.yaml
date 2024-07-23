@@ -30,7 +30,7 @@ spec:
         export IMAGE_URL=$(params.image_url)
         export IMAGE_DIGEST=$(params.image_digest)
         yq e '.images[] |= map(select(.name == env(IMAGE_URL)).digest=env(IMAGE_DIGEST))' -i ./kustomization.yaml
-    - image: quay.io/ahussey/tekton-utils:latest
+    - image: cgr.dev/chainguard/git:root-2.39@sha256:7759f87050dd8bacabe61354d75ccd7f864d6b6f8ec42697db7159eccd491139
       name: git-push
       resources: {}
       script: |
