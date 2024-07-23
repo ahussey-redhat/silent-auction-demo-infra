@@ -1,0 +1,5 @@
+{
+    "yaml.schemas": {
+        "https://json.schemastore.org/kustomization.json": "file:///Users/alexanderhussey/Documents/code/silent-auction-demo-infra/3-operators/pipelines/base/tasks/kustomization.yaml"
+    }
+}
