@@ -28,11 +28,13 @@ spec:
       name: modify-kustomization
       resources: {}
       script: |
+        set -euxo pipefail
         cd $(workspaces.argocd_source.path)/$(params.kustomization_directory)
         cat ./kustomization.yaml
         export IMAGE_URL=$(params.image_url)
         export IMAGE_DIGEST=$(params.image_digest)
-        yq e '.images[] |= map(select(.name == env(IMAGE_URL)).digest=env(IMAGE_DIGEST))' -i ./kustomization.yaml
+
+        yq e '(.images[] | select (.name == env(IMAGE_URL))) |= .digest = env(IMAGE_DIGEST)' -i ./kustomization.yaml
     - image: cgr.dev/chainguard/git:root-2.39@sha256:7759f87050dd8bacabe61354d75ccd7f864d6b6f8ec42697db7159eccd491139
       name: git-push
       resources: {}
