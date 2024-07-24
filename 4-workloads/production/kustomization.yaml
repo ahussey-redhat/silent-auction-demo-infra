@@ -14,4 +14,4 @@ resources:
   - secrets.yaml
 images:
   - name: quay.io/ahussey/silent-auction/frontend
-    digest: sha256:1f3adb48017de1795a8080e47fd78f5461cdbdac64cb2e70f9d7039a8936e6d9
+    digest: sha256:f8870b096ed8effdc8b91738b2a31903ad0c8498903f16b33d98e2b97625775b
