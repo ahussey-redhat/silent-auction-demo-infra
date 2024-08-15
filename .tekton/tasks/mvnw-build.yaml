@@ -11,7 +11,7 @@ spec:
   description: >-
     Build the native binary
   steps:
-    - image: quay.io/ahussey/tekton-utils:latest
+    - image: registry.redhat.io/devspaces/udi-rhel8:latest
       name: build-native-binary
       resources: {}
       script: |
