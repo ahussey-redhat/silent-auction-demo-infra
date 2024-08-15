@@ -1,0 +1,24 @@
+---
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  annotations:
+    tekton.dev/pipelines.minVersion: 0.12.1
+    tekton.dev/tags: image-deploy
+  name: mvnw-build
+  namespace: build
+spec:
+  description: >-
+    Build the native binary
+  steps:
+    - image: quay.io/ahussey/tekton-utils:latest
+      name: build-native-binary
+      resources: {}
+      script: |
+        set -euxo pipefail
+        cd $(workspaces.source.path)
+        ./mvnw package -Dnative
+  workspaces:
+    - name: source
+      description: >-
+        A workspace containing the source code to build
