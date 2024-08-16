@@ -4,7 +4,7 @@ kind: Kustomization
 resources:
   - ../../base
   - ../../../../4-workloads/production
-  - ../../../../4-workloads/quality
+  - ../../../../4-workloads/devspaces
 patches:
   - target:
       kind: ConsoleNotification
