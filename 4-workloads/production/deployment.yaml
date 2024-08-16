@@ -28,6 +28,15 @@ spec:
             requests:
               cpu: '1'
               memory: 256Mi
+          env:
+            - name: KEYCLOAK_URL
+              value: https://sso.bastion.blueguardian.co
+            - name: BACKEND_URL
+              value: http://silent-auction-backend:6443/api/v1
+            - name: MIN_TABLE_NUMBER
+              value: '1'
+            - name: MAX_TABLE_NUMBER
+              value: '20'
           ports:
             - name: http
               containerPort: 8080

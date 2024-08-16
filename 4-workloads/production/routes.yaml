@@ -78,7 +78,7 @@ spec:
     - name: http
       protocol: TCP
       port: 6443
-      targetPort: 6433
+      targetPort: 6443
 ---
 kind: Route
 apiVersion: route.openshift.io/v1
