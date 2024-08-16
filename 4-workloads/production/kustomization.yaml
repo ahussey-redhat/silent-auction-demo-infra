@@ -16,4 +16,4 @@ images:
   - name: quay.io/ahussey/silent-auction/frontend
     digest: sha256:7e1f21cbf5310bcd77f9be345ee6bed5f3ae2d8b94b22809a1c52ca39d1c4b03
   - name: quay.io/ahussey/silent-auction/backend
-    digest: sha256:f775411c59bf181785724fabfc83ed302c5657d5df370aa2893ba197b389b15b
+    digest: sha256:81afdf94d4b2a67521181f73a103f30f062972916d34ea0c9dcc63a1ddd64cff
