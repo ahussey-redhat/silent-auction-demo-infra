@@ -14,6 +14,9 @@ spec:
     metadata:
       labels:
         app.kubernetes.io/name: silent-auction-frontend
+        app.kubernetes.io/part-of: silent-auction
+      annotations:
+        app.openshift.io/connects-to: silent-auction-backend
     spec:
       serviceAccountName: silent-auction
       containers:
@@ -23,7 +26,7 @@ spec:
             runAsUser: 10001
           resources:
             limits:
-              cpu: '2'
+              cpu: '1'
               memory: 4Gi
             requests:
               cpu: '1'
@@ -67,6 +70,8 @@ spec:
     metadata:
       labels:
         app.kubernetes.io/name: silent-auction-backend
+        app.kubernetes.io/instance: silent-auction-backend
+        app.kubernetes.io/part-of: silent-auction
     spec:
       serviceAccountName: silent-auction
       containers:
@@ -76,7 +81,7 @@ spec:
             runAsUser: 10001
           resources:
             limits:
-              cpu: '2'
+              cpu: '1'
               memory: 4Gi
             requests:
               cpu: '1'
