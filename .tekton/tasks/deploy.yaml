@@ -20,8 +20,8 @@ spec:
     - description: Kustomization directory
       name: kustomization_directory
       type: string
-    - description: ArgoCD git repo URL
-      name: argocd_git_url
+    - description: Source code git repo URL
+      name: repo_url
       type: string
   steps:
     - image: quay.io/ahussey/tekton-utils:latest
@@ -32,6 +32,8 @@ spec:
 
         export IMAGE_URL=$(params.image_url)
         export IMAGE_DIGEST=$(params.image_digest)
+        export REPO_URL=$(params.repo_url)
+        export DEPLOYMENT_NAME=$(echo ${REPO_URL##*/} | cut -d '.' -f1)
 
         cd $(workspaces.argocd_source.path)/$(params.kustomization_directory)
 
@@ -42,6 +44,8 @@ spec:
         else
           yq e '.images + {"name": env(IMAGE_URL), "digest": env(IMAGE_DIGEST)}' -i ./kustomization.yaml
         fi
+        
+        yq e '(. | select(.metadata.name == env(DEPLOYMENT_NAME)) | .spec.template.metadata.labels.version |= to_number + 1) | .spec.template.metadata.labels.version tag = "!!str"' -i ./deployment.yaml
     - image: cgr.dev/chainguard/git:root-2.39@sha256:7759f87050dd8bacabe61354d75ccd7f864d6b6f8ec42697db7159eccd491139
       name: git-push
       resources: {}
