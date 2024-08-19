@@ -63,7 +63,7 @@ spec:
         git fetch --all
         git branch --set-upstream-to=origin/main main
 
-        git add ./$(params.kustomization_directory)/kustomization.yaml
+        git add --all
         git commit -m "Updated $(params.image_url):$(params.image_digest) for production"
         git push -u origin main -f
 
