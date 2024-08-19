@@ -37,15 +37,15 @@ spec:
 
         cd $(workspaces.argocd_source.path)/$(params.kustomization_directory)
 
-        IMAGE_EXISTS=$(yq e '(.images[] | select(.name == env(IMAGE_URL)))' ./kustomization.yaml)
+        IMAGE_EXISTS=$(/usr/local/bin/yq e '(.images[] | select(.name == env(IMAGE_URL)))' ./kustomization.yaml)
 
         if [[ ${IMAGE_EXISTS} ]]; then
-          yq e '(.images[] | select (.name == env(IMAGE_URL))) |= .digest = env(IMAGE_DIGEST)' -i ./kustomization.yaml
+          /usr/local/bin/yq e '(.images[] | select (.name == env(IMAGE_URL))) |= .digest = env(IMAGE_DIGEST)' -i ./kustomization.yaml
         else
-          yq e '.images + {"name": env(IMAGE_URL), "digest": env(IMAGE_DIGEST)}' -i ./kustomization.yaml
+          /usr/local/bin/yq e '.images + {"name": env(IMAGE_URL), "digest": env(IMAGE_DIGEST)}' -i ./kustomization.yaml
         fi
         
-        yq e '(. | select(.metadata.name == env(DEPLOYMENT_NAME)) | .spec.template.metadata.labels.version |= to_number + 1) | .spec.template.metadata.labels.version tag = "!!str"' -i ./deployment.yaml
+        /usr/local/bin/yq e 'with(.; select(.metadata.name == env(DEPLOYMENT_NAME)) | .spec.template.metadata.labels.version |= to_number + 1) | .spec.template.metadata.labels.version tag = "!!str"' -i ./deployment.yaml
     - image: cgr.dev/chainguard/git:root-2.39@sha256:7759f87050dd8bacabe61354d75ccd7f864d6b6f8ec42697db7159eccd491139
       name: git-push
       resources: {}
