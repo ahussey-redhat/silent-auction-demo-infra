@@ -15,6 +15,9 @@ spec:
       labels:
         app.kubernetes.io/name: silent-auction-frontend
         app.kubernetes.io/part-of: silent-auction
+        app: silent-auction
+        version: v1
+        sidecar.istio.io/inject: 'true'
       annotations:
         app.openshift.io/connects-to: silent-auction-backend
     spec:
@@ -72,6 +75,9 @@ spec:
         app.kubernetes.io/name: silent-auction-backend
         app.kubernetes.io/instance: silent-auction-backend
         app.kubernetes.io/part-of: silent-auction
+        app: silent-auction
+        version: v1
+        sidecar.istio.io/inject: 'true'
     spec:
       serviceAccountName: silent-auction
       containers:
