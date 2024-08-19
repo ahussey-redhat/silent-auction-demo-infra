@@ -5,6 +5,10 @@ metadata:
   name: silent-auction-frontend
   annotations:
     argocd.argoproj.io/sync-wave: "3"
+    app.openshift.io/connects-to: '[{"apiVersion":"apps/v1","kind":"Deployment","name":"silent-auction-backend"}]'
+  labels:
+    app.kubernetes.io/instance: silent-auction
+    app.kubernetes.io/part-of: silent-auction
 spec:
   replicas: 1
   selector:
@@ -64,6 +68,9 @@ metadata:
   name: silent-auction-backend
   annotations:
     argocd.argoproj.io/sync-wave: "3"
+  labels:
+    app.kubernetes.io/instance: silent-auction
+    app.kubernetes.io/part-of: silent-auction
 spec:
   replicas: 1
   selector:
