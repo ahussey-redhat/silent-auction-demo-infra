@@ -28,7 +28,7 @@ spec:
       name: modify-kustomization
       resources: {}
       script: |
-        set -euo pipefail
+        set -euxo pipefail
 
         export IMAGE_URL=$(params.image_url)
         export IMAGE_DIGEST=$(params.image_digest)
