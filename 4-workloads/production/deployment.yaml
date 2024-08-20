@@ -41,6 +41,10 @@ spec:
           env:
             - name: KEYCLOAK_URL
               value: https://sso.bastion.blueguardian.co
+            - name: KEYCLOAK_CLIENT_ID
+              value: frontend
+            - name: KEYCLOAK_REALM
+              value: silent-auction
             - name: BACKEND_URL
               value: http://silent-auction-backend:6443/api/v1
             - name: MIN_TABLE_NUMBER
