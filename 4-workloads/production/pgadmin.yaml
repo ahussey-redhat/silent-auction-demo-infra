@@ -6,6 +6,10 @@ metadata:
   annotations:
     argocd.argoproj.io/sync-wave: "3"
 spec:
+  metadata:
+    labels:
+      sidecar.istio.io/inject: 'true'
+      app: pgadmin
   dataVolumeClaimSpec:
     accessModes:
       - ReadWriteOnce
