@@ -12,6 +12,7 @@ resources:
   - deployment.yaml
   - routes.yaml
   - secrets.yaml
+  - configmaps.yaml
 images:
   - name: quay.io/ahussey/silent-auction/frontend
     digest: sha256:3486705c86d9a8da462e1c758ca0ce9b50182080e7ee35c9c15d5d87fe6c8668

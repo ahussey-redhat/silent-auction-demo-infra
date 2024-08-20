@@ -40,17 +40,35 @@ spec:
               memory: 256Mi
           env:
             - name: KEYCLOAK_URL
-              value: https://sso.bastion.blueguardian.co
+              valueFrom:
+                configMapKeyRef:
+                  name: silent-auction-frontend
+                  key: KEYCLOAK_URL
             - name: KEYCLOAK_CLIENT_ID
-              value: frontend
+              valueFrom:
+                configMapKeyRef:
+                  name: silent-auction-frontend
+                  key: KEYCLOAK_CLIENT_ID
             - name: KEYCLOAK_REALM
-              value: silent-auction
+              valueFrom:
+                configMapKeyRef:
+                  name: silent-auction-frontend
+                  key: KEYCLOAK_REALM
             - name: BACKEND_URL
-              value: http://silent-auction-backend:6443/api/v1
+              valueFrom:
+                configMapKeyRef:
+                  name: silent-auction-frontend
+                  key: BACKEND_URL
             - name: MIN_TABLE_NUMBER
-              value: '1'
+              valueFrom:
+                configMapKeyRef:
+                  name: silent-auction-frontend
+                  key: MIN_TABLE_NUMBER
             - name: MAX_TABLE_NUMBER
-              value: '20'
+              valueFrom:
+                configMapKeyRef:
+                  name: silent-auction-frontend
+                  key: MAX_TABLE_NUMBER
           ports:
             - name: http
               containerPort: 8080
