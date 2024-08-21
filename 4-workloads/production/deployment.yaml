@@ -26,6 +26,10 @@ spec:
         app.openshift.io/connects-to: silent-auction-backend
     spec:
       serviceAccountName: silent-auction
+      volumes:
+        - name: modernjs-env
+          configMap:
+            name: silent-auction-frontend
       containers:
         - name: silent-auction-frontend
           image: 'quay.io/ahussey/silent-auction/frontend:latest'
@@ -38,37 +42,10 @@ spec:
             requests:
               cpu: '1'
               memory: 256Mi
-          env:
-            - name: KEYCLOAK_URL
-              valueFrom:
-                configMapKeyRef:
-                  name: silent-auction-frontend
-                  key: KEYCLOAK_URL
-            - name: KEYCLOAK_CLIENT_ID
-              valueFrom:
-                configMapKeyRef:
-                  name: silent-auction-frontend
-                  key: KEYCLOAK_CLIENT_ID
-            - name: KEYCLOAK_REALM
-              valueFrom:
-                configMapKeyRef:
-                  name: silent-auction-frontend
-                  key: KEYCLOAK_REALM
-            - name: BACKEND_URL
-              valueFrom:
-                configMapKeyRef:
-                  name: silent-auction-frontend
-                  key: BACKEND_URL
-            - name: MIN_TABLE_NUMBER
-              valueFrom:
-                configMapKeyRef:
-                  name: silent-auction-frontend
-                  key: MIN_TABLE_NUMBER
-            - name: MAX_TABLE_NUMBER
-              valueFrom:
-                configMapKeyRef:
-                  name: silent-auction-frontend
-                  key: MAX_TABLE_NUMBER
+          volumeMounts:
+            - name: modernjs-env
+              mountPath: /opt/app-root/src/.env
+              subPath: .env
           ports:
             - name: http
               containerPort: 8080
