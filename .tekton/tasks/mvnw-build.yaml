@@ -17,7 +17,7 @@ spec:
       script: |
         set -euxo pipefail
         cd $(workspaces.source.path)
-        nice -n 15 ./mvnw install -Dnative
+        nice -n 15 ./mvnw install -T 2C
   workspaces:
     - name: source
       description: >-
