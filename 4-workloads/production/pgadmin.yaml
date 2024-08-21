@@ -10,6 +10,7 @@ spec:
     labels:
       sidecar.istio.io/inject: 'true'
       app: pgadmin
+      version: "1"
   dataVolumeClaimSpec:
     accessModes:
       - ReadWriteOnce
