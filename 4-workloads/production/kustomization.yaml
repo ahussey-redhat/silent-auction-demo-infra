@@ -15,6 +15,6 @@ resources:
   - configmaps.yaml
 images:
   - name: quay.io/ahussey/silent-auction/frontend
-    digest: sha256:c61bc557a6199fc288d2d9ff5b255454c2c0670e875d15d7902e6834988c135e
+    digest: sha256:cebcf831cd21f87744cda55dbcbb86bb4660af48fdfa4c41df6eb0091e75cb72
   - name: quay.io/ahussey/silent-auction/backend
     digest: sha256:7f111422fd83a68096ab14dfb733dbc49e1fae360bae0c2667d8bfa10fe6218b
