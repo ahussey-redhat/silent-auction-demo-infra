@@ -8,7 +8,7 @@ metadata:
 spec:
   metadata:
     labels:
-      sidecar.istio.io/inject: 'true'
+      sidecar.istio.io/inject: 'false'
       app: pgadmin
       version: "1"
   dataVolumeClaimSpec:
