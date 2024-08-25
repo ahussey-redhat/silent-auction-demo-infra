@@ -72,7 +72,7 @@ spec:
   hosts:
     - istio-rollout.dev.argoproj.io
   http:
-    - name: primary
+    - name: silent-auction-frontend
       route:
         - destination:
             host: silent-auction-frontend-stable
@@ -89,7 +89,7 @@ metadata:
     argocd.argoproj.io/sync-wave: "3"
 spec:
   to:
-    kind: VirtualService
+    kind: Service
     name: silent-auction-frontend
   tls:
     termination: edge
@@ -139,7 +139,7 @@ spec:
   hosts:
     - istio-rollout.dev.argoproj.io
   http:
-    - name: primary
+    - name: silent-auction-backend
       route:
         - destination:
             host: silent-auction-backend-stable
@@ -156,7 +156,7 @@ metadata:
     argocd.argoproj.io/sync-wave: "3"
 spec:
   to:
-    kind: VirtualService
+    kind: Service
     name: silent-auction-backend
   tls:
     termination: edge

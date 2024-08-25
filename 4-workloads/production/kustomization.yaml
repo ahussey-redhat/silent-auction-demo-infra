@@ -10,9 +10,10 @@ resources:
   - pgadmin.yaml
   - service-account.yaml
   - deployment.yaml
-  - routes.yaml
+  - services.yaml
   - secrets.yaml
   - configmaps.yaml
+  - rollouts.yaml
 images:
   - name: quay.io/ahussey/silent-auction/frontend
     digest: sha256:107d7ee73cdd362849160f2865186e2ba43a72317021072d68cea6af60dba208

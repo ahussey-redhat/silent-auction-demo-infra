@@ -1,0 +1,40 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Rollout
+metadata:
+  name: silent-auction-frontend
+spec:
+  strategy:
+    canary:
+      canaryService: silent-auction-frontend-canary
+      stableService: silent-auction-frontend-stable
+      trafficRouting:
+        istio:
+          virtualService:
+            name: silent-auction-frontend
+            routes:
+              - silent-auction-frontend
+      steps:
+        - setWeight: 5
+        - pause:
+            duration: 10m
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Rollout
+metadata:
+  name: silent-auction-backend
+spec:
+  strategy:
+    canary:
+      canaryService: silent-auction-backend-canary
+      stableService: silent-auction-backend-stable
+      trafficRouting:
+        istio:
+          virtualService:
+            name: silent-auction-backend
+            routes:
+              - silent-auction-backend
+      steps:
+        - setWeight: 5
+        - pause:
+            duration: 10m
