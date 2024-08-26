@@ -81,6 +81,21 @@ spec:
             host: silent-auction-frontend-canary
           weight: 0
 ---
+apiVersion: networking.istio.io/v1alpha3
+kind: Gateway
+metadata:
+  name: silent-auction-frontend
+spec:
+  selector:
+    istio: ingressgateway
+  servers:
+    - port:
+        number: 443
+        name: silent-auction-frontend
+        protocol: HTTPS
+      hosts:
+        - "*"
+---
 apiVersion: v1
 kind: Service
 metadata:
@@ -129,3 +144,18 @@ spec:
         - destination:
             host: silent-auction-backend-canary
           weight: 0
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: Gateway
+metadata:
+  name: silent-auction-backend
+spec:
+  selector:
+    istio: ingressgateway
+  servers:
+    - port:
+        number: 443
+        name: silent-auction-backend
+        protocol: HTTPS
+      hosts:
+        - "*"
