@@ -81,24 +81,6 @@ spec:
             host: silent-auction-frontend-canary
           weight: 0
 ---
-kind: Route
-apiVersion: route.openshift.io/v1
-metadata:
-  name: silent-auction-frontend
-  annotations:
-    argocd.argoproj.io/sync-wave: "3"
-spec:
-  to:
-    kind: Service
-    name: silent-auction-frontend
-  tls:
-    termination: edge
-    insecureEdgeTerminationPolicy: Redirect
-  subdomain: silent-auction
-  path: /
-  port:
-    targetPort: http
----
 apiVersion: v1
 kind: Service
 metadata:
@@ -147,21 +129,3 @@ spec:
         - destination:
             host: silent-auction-backend-canary
           weight: 0
----
-kind: Route
-apiVersion: route.openshift.io/v1
-metadata:
-  name: silent-auction-backend
-  annotations:
-    argocd.argoproj.io/sync-wave: "3"
-spec:
-  to:
-    kind: Service
-    name: silent-auction-backend
-  tls:
-    termination: edge
-    insecureEdgeTerminationPolicy: Redirect
-  subdomain: silent-auction-backend
-  path: /
-  port:
-    targetPort: http
