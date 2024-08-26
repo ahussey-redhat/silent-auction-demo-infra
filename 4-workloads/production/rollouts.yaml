@@ -4,10 +4,13 @@ kind: Rollout
 metadata:
   name: silent-auction-frontend
 spec:
+  revisionHistoryLimit: 2
   strategy:
     canary:
-      canaryService: silent-auction-frontend-canary
+      minPodsPerReplicaSet: 1
       stableService: silent-auction-frontend-stable
+      canaryService: silent-auction-frontend-canary
+      scaleDownDelaySeconds: 60
       trafficRouting:
         istio:
           virtualService:
@@ -24,10 +27,13 @@ kind: Rollout
 metadata:
   name: silent-auction-backend
 spec:
+  revisionHistoryLimit: 2
   strategy:
     canary:
+      minPodsPerReplicaSet: 1
       canaryService: silent-auction-backend-canary
       stableService: silent-auction-backend-stable
+      scaleDownDelaySeconds: 60
       trafficRouting:
         istio:
           virtualService:
