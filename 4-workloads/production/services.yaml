@@ -94,7 +94,7 @@ spec:
         name: silent-auction-frontend
         protocol: HTTP
       hosts:
-        - "*"
+        - silent-auction.qa.blueguardian.co
 ---
 apiVersion: v1
 kind: Service
@@ -158,4 +158,4 @@ spec:
         name: silent-auction-backend
         protocol: HTTP
       hosts:
-        - "*"
+        - silent-auction-backend.qa.blueguardian.co
