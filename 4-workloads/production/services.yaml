@@ -90,9 +90,9 @@ spec:
     istio: ingressgateway
   servers:
     - port:
-        number: 443
+        number: 80
         name: silent-auction-frontend
-        protocol: HTTPS
+        protocol: HTTP
       hosts:
         - "*"
 ---
@@ -154,8 +154,8 @@ spec:
     istio: ingressgateway
   servers:
     - port:
-        number: 443
+        number: 80
         name: silent-auction-backend
-        protocol: HTTPS
+        protocol: HTTP
       hosts:
         - "*"
