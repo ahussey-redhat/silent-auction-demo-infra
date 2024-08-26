@@ -68,9 +68,9 @@ metadata:
   name: silent-auction-frontend
 spec:
   gateways:
-    - istio-rollout-gateway
+    - silent-auction-frontend
   hosts:
-    - istio-rollout.dev.argoproj.io
+    - silent-auction.qa.blueguardian.co
   http:
     - name: silent-auction-frontend
       route:
@@ -132,9 +132,9 @@ metadata:
   name: silent-auction-backend
 spec:
   gateways:
-    - istio-rollout-gateway
+    - silent-auction-backend
   hosts:
-    - istio-rollout.dev.argoproj.io
+    - silent-auction-backend.qa.blueguardian.co
   http:
     - name: silent-auction-backend
       route:
