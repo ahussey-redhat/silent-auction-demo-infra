@@ -9,7 +9,6 @@ resources:
   - db-init-sql.yaml
   - pgadmin.yaml
   - service-account.yaml
-  - deployment.yaml
   - services.yaml
   - secrets.yaml
   - configmaps.yaml
