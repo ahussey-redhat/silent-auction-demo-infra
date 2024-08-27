@@ -91,7 +91,7 @@ spec:
         app.kubernetes.io/instance: silent-auction-backend
         app.kubernetes.io/part-of: silent-auction
         app: silent-auction
-        version: "9"
+        version: "10"
         sidecar.istio.io/inject: 'true'
     spec:
       serviceAccountName: silent-auction
