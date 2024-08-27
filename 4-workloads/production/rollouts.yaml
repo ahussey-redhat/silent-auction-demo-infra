@@ -20,7 +20,7 @@ spec:
         app.kubernetes.io/name: silent-auction-frontend
         app.kubernetes.io/part-of: silent-auction
         app: silent-auction
-        version: "10"
+        version: "11"
         sidecar.istio.io/inject: 'true'
       annotations:
         app.openshift.io/connects-to: silent-auction-backend
