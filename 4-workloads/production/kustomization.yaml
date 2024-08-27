@@ -15,6 +15,6 @@ resources:
   - rollouts.yaml
 images:
   - name: quay.io/ahussey/silent-auction/frontend
-    digest: sha256:3d5f1b19d7d354468c91ec6c758cb23166cea8e1f1900e14a258726382d1c828
+    digest: sha256:dd1d3c8cc32d76f29853ea6fdbbdd580768000ebd4d9112997bf39fc48936b8d
   - name: quay.io/ahussey/silent-auction/backend
     digest: sha256:d5636804e046705e4afbd01866463b7ce172a03063f6436cfe348689fc329e75
