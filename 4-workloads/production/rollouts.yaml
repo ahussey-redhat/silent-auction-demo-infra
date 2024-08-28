@@ -11,7 +11,7 @@ metadata:
     app.kubernetes.io/instance: silent-auction
     app.kubernetes.io/part-of: silent-auction
 spec:
-  replicas: 1
+  replicas: 3
   selector:
     matchLabels:
       app.kubernetes.io/name: silent-auction-frontend
@@ -82,7 +82,7 @@ metadata:
     app.kubernetes.io/instance: silent-auction
     app.kubernetes.io/part-of: silent-auction
 spec:
-  replicas: 1
+  replicas: 3
   selector:
     matchLabels:
       app.kubernetes.io/name: silent-auction-backend
