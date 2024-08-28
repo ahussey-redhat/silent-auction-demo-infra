@@ -3,6 +3,7 @@ apiVersion: postgres-operator.crunchydata.com/v1beta1
 kind: PostgresCluster
 metadata:
   name: silent-auction
+  namespace: production
   labels:
     app: silent-auction
     version: '16'

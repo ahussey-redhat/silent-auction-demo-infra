@@ -3,6 +3,7 @@ apiVersion: argoproj.io/v1alpha1
 kind: Rollout
 metadata:
   name: silent-auction-frontend
+  namespace: production
   annotations:
     argocd.argoproj.io/sync-wave: "3"
     app.openshift.io/connects-to: '[{"apiVersion":"apps/v1","kind":"Deployment","name":"silent-auction-backend"}]'
@@ -74,6 +75,7 @@ apiVersion: argoproj.io/v1alpha1
 kind: Rollout
 metadata:
   name: silent-auction-backend
+  namespace: production
   annotations:
     argocd.argoproj.io/sync-wave: "3"
   labels:

@@ -3,6 +3,7 @@ apiVersion: postgres-operator.crunchydata.com/v1beta1
 kind: PGAdmin
 metadata:
   name: pgadmin
+  namespace: production
   annotations:
     argocd.argoproj.io/sync-wave: "3"
 spec:

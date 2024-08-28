@@ -1,7 +1,6 @@
 ---
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
-namespace: production
 commonAnnotations:
   argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
 resources:
@@ -19,18 +18,3 @@ images:
     digest: sha256:7788eee793ab858709837ca0192cf2f2c06edfe8ce6aecf79dc545c2d8b141fb
   - name: quay.io/ahussey/silent-auction/backend
     digest: sha256:866f60bfae8e2278757fa04ddf7fb118057bf723f8b8e6ef24ecaa0e3e4e1bd1
-patches:
-  - patch: |-
-      - op: replace
-        path: /metadata/namespace
-        value: build
-    target:
-      kind: Repository
-      name: ahussey-redhat-silent-auction-frontend
-  - patch: |-
-      - op: replace
-        path: /metadata/namespace
-        value: build
-    target:
-      kind: Repository
-      name: ahussey-redhat-silent-auction-backend

@@ -3,6 +3,7 @@ kind: ConfigMap
 apiVersion: v1
 metadata:
   name: silent-auction-frontend
+  namespace: production
   annotations:
     argocd.argoproj.io/sync-wave: "1"
 immutable: false
