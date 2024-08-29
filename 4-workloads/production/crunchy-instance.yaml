@@ -13,7 +13,7 @@ metadata:
 spec:
   metadata:
     labels:
-      sidecar.istio.io/inject: 'true'
+      sidecar.istio.io/inject: 'false'
       app: postgresql
       version: "1"
   databaseInitSQL:
