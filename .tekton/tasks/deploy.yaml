@@ -24,7 +24,7 @@ spec:
       name: repo_url
       type: string
   steps:
-    - image: quay.io/ahussey/tekton-utils@sha256:c002664c872c7c456e7a51fa14438fbc8708b541852cbb44fc3ef3971b5722bb
+    - image: quay.io/ahussey/tekton-utils@sha256:4f4cf30602038382d9d52942e6f99281eced0f61bdced9ab4dd4ae1d29c586f5
       name: modify-kustomization
       resources: {}
       script: |
