@@ -15,6 +15,6 @@ resources:
   - tkn-pac-repos.yaml
 images:
   - name: quay.io/ahussey/silent-auction/frontend
-    digest: sha256:24f6ec188d022e22829d9fcb98e1b44d45b886732a8f28ad797e995588cd7118
+    digest: sha256:0f096e47f0be21198433af8557b87b5eb00d48c80f851db728d418baa0c5157b
   - name: quay.io/ahussey/silent-auction/backend
     digest: sha256:4db8aed4538d09a6c637c2cb847d4ff8a90ec01f29ff819045eed8e0dc2c2ab4
