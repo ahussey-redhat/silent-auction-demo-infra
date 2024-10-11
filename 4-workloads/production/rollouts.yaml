@@ -63,7 +63,6 @@ spec:
       stableService: silent-auction-frontend-stable
       canaryService: silent-auction-frontend-canary
       scaleDownDelaySeconds: 60
-      scaleDownRevisionLimit: 3
       trafficRouting:
         istio:
           virtualService:
@@ -129,7 +128,6 @@ spec:
       canaryService: silent-auction-backend-canary
       stableService: silent-auction-backend-stable
       scaleDownDelaySeconds: 60
-      scaleDownRevisionLimit: 3
       trafficRouting:
         istio:
           virtualService:
