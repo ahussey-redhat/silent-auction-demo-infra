@@ -15,6 +15,9 @@ spec:
   selector:
     matchLabels:
       app.kubernetes.io/name: silent-auction-frontend
+  revisionHistoryLimit: 3
+  rollbackWindow:
+    revisions: 3
   template:
     metadata:
       labels:
@@ -60,6 +63,7 @@ spec:
       stableService: silent-auction-frontend-stable
       canaryService: silent-auction-frontend-canary
       scaleDownDelaySeconds: 60
+      scaleDownRevisionLimit: 3
       trafficRouting:
         istio:
           virtualService:
@@ -67,7 +71,7 @@ spec:
             routes:
               - silent-auction-frontend
       steps:
-        - setWeight: 5
+        - setWeight: 20
         - pause:
             duration: 10m
 ---
@@ -86,6 +90,9 @@ spec:
   selector:
     matchLabels:
       app.kubernetes.io/name: silent-auction-backend
+  revisionHistoryLimit: 3
+  rollbackWindow:
+    revisions: 3
   template:
     metadata:
       labels:
@@ -122,6 +129,7 @@ spec:
       canaryService: silent-auction-backend-canary
       stableService: silent-auction-backend-stable
       scaleDownDelaySeconds: 60
+      scaleDownRevisionLimit: 3
       trafficRouting:
         istio:
           virtualService:
@@ -129,6 +137,6 @@ spec:
             routes:
               - silent-auction-backend
       steps:
-        - setWeight: 5
+        - setWeight: 20
         - pause:
             duration: 10m
